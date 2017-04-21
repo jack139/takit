@@ -1,0 +1,38 @@
+$def with (name, str)
+
+$var title: 客服CRM
+$var css:
+$var js: /static/js/jquery-1.7.1.min.js
+$var name: $str $name
+$var load: InitInit();
+
+<script type="text/javascript">
+function InitInit(){
+}
+</script>
+
+<h3>查询订单</h3>
+
+<form name="report_order" method="post" action="/crm">
+<p>
+查询条件：
+<div><input type="radio" name="cat" value="orderNo" checked="checked"/>Qunar订单号<div/>
+<div><input type="radio" name="cat" value="ticket_no" />12306取票号<div/>
+<div><input type="radio" name="cat" value="trainNo" />车次<div/>
+<div><input type="radio" name="cat" value="start_date" />开车日期(yyyy-mm-dd)<div/>
+<div><input type="radio" name="cat" value="start_time" />开车时间(hh:mm)<div/>
+<div><input type="radio" name="cat" value="dptStation" />出发站<div/>
+<div><input type="radio" name="cat" value="arrStation" />到达站<div/>
+<div><input type="radio" name="cat" value="passengers.name" />乘客姓名<div/>
+<div><input type="radio" name="cat" value="passengers.certNo" />乘客证件号<div/>
+<div><input type="radio" name="cat" value="user_12306" />12306帐号<div/>
+<div><input type="radio" name="cat" value="alipay_form.ord_id_ext" />支付宝订单号<div/>
+<div><input type="radio" name="cat" value="_id" />todo_id<div/>
+</p>
+<p><input class="formtextinput3" type="text" value="" name="content"/></p>
+
+
+<p><input class="formbutton" type="submit" name="button" id="button" value="查询"/><p>
+</form>
+
+<br/>

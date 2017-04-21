@@ -1,0 +1,17 @@
+$def with (name, str, todo)
+
+$var title: 后台操作中 ...
+$var css:
+$var js: /static/js/jquery-1.7.1.min.js /static/js/router.js?ver=1.6
+$var name: $str $name
+$var load: InitInit();
+
+<script type="text/javascript">
+function InitInit(){
+	doFirst("$todo");
+}
+</script>
+
+<h3>后台操作中 ...</h3>
+
+<p><label id="tips"></label></p>

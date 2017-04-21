@@ -1,0 +1,15 @@
+$def with (todo, api_key, secret)
+
+$var title: 后台操作中 ...
+$var js: /static/js/router_api.js?ver=1.5
+$var load: InitInit();
+
+<script type="text/javascript">
+function InitInit(){
+	doFirst("$todo", "$api_key", "$secret");
+}
+</script>
+
+<h3>后台操作中 ...</h3>
+
+<p><label id="tips"></label></p>

@@ -1,0 +1,50 @@
+$def with (name, str, todos)
+
+$var title: 手工查询
+$var css:
+$var js: /static/js/jquery-1.7.1.min.js /static/js/time.js /static/My97DatePicker/WdatePicker.js
+$var name: $str $name
+$var load: InitInit();
+
+<script type="text/javascript">
+function InitInit(){
+	var date =  new Time();
+	var m_dtCalendarDate = date.getStringTime().split(" ")[0];;
+
+	WdatePicker({
+		minDate:'2014-01-01 00:00:00',
+		maxDate:'2048-12-31 23:59:59',
+		eCont:'div1',
+		onpicked:function(dp){
+			m_dtCalendarDate = 
+			$$('#dtCalendarDate')[0].value=dp.cal.getDateStr();
+		},
+		lang: 'zh-cn',
+		startDate:m_dtCalendarDate
+	});
+}
+</script>
+
+<h3>手工查询</h3>
+
+<form name="settings" method="post" action="/query">
+  
+<p>出发站：<input class="formtextinput3" type="text" name="start_station" value=""/></p>
+<p>目的站：<input class="formtextinput3" type="text" name="stop_station" value=""/></p>
+<p>出发日：<input class="formtextinput3" type="text" name="start_date" value="" id="dtCalendarDate" readonly="readonly"/>
+	<div id="div1" class="widthpercent100"></div></p>
+<p> </p>
+<p><input class="formbutton" type="submit" name="button" id="button" value="查询" /><p>
+
+</form>
+
+<h3>未处理完的订单</h3>
+$if len(todos)>0:
+  $for todo in todos:
+    <div>
+      <a class="rdact" href="/router?todo=$todo[0]">继续处理</a>&nbsp;
+      <a class="rdact" href="/cancel?todo=$todo[0]">取消</a>&nbsp;
+      $todo[3] （$todo[1] - $todo[2]）&nbsp;
+    </div>
+$else:
+  <div>n/a</div>

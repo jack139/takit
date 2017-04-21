@@ -1,0 +1,31 @@
+$def with (name, str, todo_id)
+
+$var title: 查询结果
+$var css:
+$var js: /static/js/jquery-1.7.1.min.js /static/js/query_result.js?ver=1.2
+$var name: $str $name
+$var load: InitInit();
+
+<script type="text/javascript">
+function InitInit(){
+	doFirst("$:todo_id");
+}
+</script>
+
+<h3>查询结果</h3>
+
+<p><label id="tips"></label></p>
+
+<p><input type="radio" name="train_class" onclick="createTable('all');" checked="checked">全部</input>
+<input type="radio" name="train_class" onclick="createTable('GC');">高铁/城际</input>
+<input type="radio" name="train_class" onclick="createTable('D');">动车</input>
+<input type="radio" name="train_class" onclick="createTable('Z');">直达</input>
+<input type="radio" name="train_class" onclick="createTable('T');">特快</input>
+<input type="radio" name="train_class" onclick="createTable('K');">快速</input>
+<input type="radio" name="train_class" onclick="createTable('others');">其他</input>
+</p>
+
+<div id="result"></div> 
+
+<p> </p>
+

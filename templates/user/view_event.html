@@ -1,0 +1,126 @@
+$def with (name, str, todo_id, db_todo, last_time, auth, pass_12306)
+
+$var title: 查询事件详情
+$var css:
+$var js: 
+$var name: $str $name
+$var load: 
+
+
+<h3>事件简介</h3>
+
+<p>
+$if auth>0:
+	<a class="act" href="#" onclick="document.getElementById('edit').style.display='block';">人工处理</a>
+&nbsp;&nbsp;<a class="rdact" href="#" onclick="document.getElementById('crm').style.display='block';">添加备注</a>
+&nbsp;&nbsp;<a class="rdact" href="javascript:window.opener=null;window.close();">关闭窗口</a>
+</p>
+
+$if auth>0:
+	<div style="display:none;" id="edit">
+	<h4>以下操作会改变此订单操作行为，如果你不清楚自己在干什么，请慎用。后果很严重，小心噩梦！</h4>
+	<form name="settings" method="post" action="/view_event">
+		<input type="hidden" name="todo" value="$todo_id">
+		<p>改变事件状态：<select name="status">
+			<option value="RETURN_OK">RETURN_OK - 手工退票成功</option>
+			<option value="FREE_USER">FREE_USER - 继续自动退票</option>
+			<option value="QUERY">QUERY - 重新查询车次并下单</option>
+			<option value="NO_TICKET">NO_TICKET - 无票</option>
+			<option value="SCAN3">SCAN3 - 检查支付结果</option>
+			<option value="FINISH">FINISH - 结束(不再做任何处理)</option>
+			$if auth==999:
+				<option value="__NOP__">不改变状态，释放lock</option>
+				<option value="__CANCEL_RETURN__">拒绝退票</option>
+				<option value="WAIT2">WAIT2 - 占座后的处理</option>
+				<option value="PAY">PAY - 支付</option>
+				<option value="CANCEL">CANCEL - 取消（未支付的订单）</option>
+				<option value="FREE_USER">FREE_USER - 释放12306用户后结束</option>
+		</select></p>
+		<p><input class="formbutton" type="submit" name="button" id="button" value="保存"
+			onclick="{if(confirm('你清楚你在干什么吗？')){return true;}return false;}" /><p>
+	</form>
+	</div>
+
+<div id="crm0">
+<form name="crmtexts" method="post" action="/view_event">
+<input type="hidden" name="todo" value="$todo_id">
+<input type="hidden" name="status" value="__CRM__">
+<h4>已有备注</h4>
+<textarea class="formtextinput3" rows="5" cols="50" name="crmtext0" readonly="readonly">
+$(db_todo['crm_text'] if db_todo.has_key('crm_text') else 'n/a')
+</textarea>
+<div style="display:none;" id="crm">
+<h4>添加新备注</h4>
+<textarea class="formtextinput3" rows="5" cols="50" name="crmtext"></textarea>
+<p><input class="formbutton" type="submit" name="button" id="button" value="保存"/><p>
+</form>
+</div>
+
+<br/>
+
+<table>
+  <tr><td class="dotbt">事件</td><td class="dotb">$db_todo['event']</td></tr>
+  <tr><td class="dotbt">状态</td><td class="dotb">$db_todo['status']</td></tr>
+  <tr><td class="dotbt">最近处理</td><td class="dotb">
+  	$if last_time>3600:
+  		<b>$(last_time/3600) 小时之前</b>
+  	$elif last_time>60:
+  		<b>$(last_time/60) 分钟之前</b>
+  	$else:
+  		$last_time 秒之前
+  </td></tr>
+  <tr><td class="dotbt">开车日期</td><td class="dotb">$(db_todo['start_date'] if db_todo.has_key('start_date') else '')</td></tr>
+  <tr><td class="dotbt">车次</td><td class="dotb">$(db_todo['trainNo'] if db_todo.has_key('trainNo') else '')</td></tr>
+  <tr><td class="dotbt">开车时间</td><td class="dotb">$(db_todo['trainStartTime'] if db_todo.has_key('trainStartTime') else '')</td></tr>
+  <tr><td class="dotbt">到达时间</td><td class="dotb">$(db_todo['trainEndTime'] if db_todo.has_key('trainEndTime') else '')</td></tr>
+  <tr><td class="dotbt">出发站</td><td class="dotb">$(db_todo['dptStation'] if db_todo.has_key('dptStation') else '')</td></tr>
+  <tr><td class="dotbt">到达站</td><td class="dotb">$(db_todo['arrStation'] if db_todo.has_key('arrStation') else '')</td></tr>
+  <tr><td class="dotbt">Qunar订单号</td><td class="dotb">$(db_todo['orderNo'] if db_todo.has_key('orderNo') else '')</td></tr>
+  <tr><td class="dotbt">Qunar订单行程数量</td><td class="dotb">$(db_todo['tripNum'] if db_todo.has_key('tripNum') else '')</td></tr>
+  <tr><td class="dotbt">Qunar订单行程序号</td><td class="dotb">$(db_todo['seq'] if db_todo.has_key('seq') else '')</td></tr>
+  <tr><td class="dotbt">12306购票帐户</td><td class="dotb">$(db_todo['user_12306'] if db_todo.has_key('user_12306') else '') / $pass_12306</td></tr>
+  <tr><td class="dotbt">12306票号</td><td class="dotb">$(db_todo['ticket_no'] if db_todo.has_key('ticket_no') else '')</td></tr>
+  <tr><td class="dotbt">应付金额</td><td class="dotb">$(db_todo['ticket_no_complete']['orderDBList'][0]['ticket_total_price_page'] if db_todo.has_key('ticket_no_complete') else '')</td></tr>
+  <tr><td class="dotbt">付款金额</td><td class="dotb">$(db_todo['alipay_form']['ord_amt'] if db_todo.has_key('alipay_form') else '')</td></tr>
+  <tr><td class="dotbt">支付情况</td><td class="dotb">$('已支付' if db_todo.has_key('pay_off') and db_todo['pay_off']==1 else '未付')</td></tr>
+  <tr><td class="dotbt">支付宝订单号</td><td class="dotb">$(db_todo['alipay_form']['ord_id_ext'] if db_todo.has_key('alipay_form') and db_todo['alipay_form'].has_key('ord_id_ext')else '')</td></tr>
+  <tr><td class="dotbt">payStatus</td><td class="dotb">$(db_todo['payStatus'] if db_todo.has_key('payStatus') else '')</td></tr>
+  <tr><td class="dotbt">lock</td><td class="dotb">$db_todo['lock']</td></tr>
+  <tr><td class="dotbt">man</td><td class="dotb">$db_todo['man']</td></tr>
+  <tr><td class="dotbt">退票标志</td><td class="dotb">$(db_todo['return'] if db_todo.has_key('return') else '')</td></tr>
+  <tr><td class="dotbt">极速退票</td><td class="dotb">$(db_todo['secondRefund'] if db_todo.has_key('secondRefund') else 0)</td></tr>
+  <tr><td class="dotbt">qunar_err</td><td class="dotb">$(db_todo['qunar_err'] if db_todo.has_key('qunar_err') else '')</td></tr>
+  <tr><td class="dotbt">comment</td><td class="dotb">$db_todo['comment']</td></tr>
+  <tr><td class="dotbt">history</td><td class="dotb">
+  	$if db_todo.has_key('history'):
+  		$for h in db_todo['history']:
+  			$if len(h)>3:
+  				<div>$h[0] $h[1] - $h[2] - $h[3]</div>
+  			$else:
+  				<div>$h[0] $h[1] - $h[2]</div>
+  </td></tr>
+</table>
+
+<p id="middle">
+<a class="rdact" href="#middle" onclick="document.getElementById('status').style.display='block';">详细诊断</a></p>
+
+<div style="display:none;" id="status">
+
+<table width="100%" style="table-layout: fixed;">
+  <tr>
+  	<td class="dotbt" width="20%">属性</td>
+  	<td class="dotbt" style="word-wrap: break-word;">值</td>
+  </tr>
+$ all_key=db_todo.keys()
+$ all_key.sort()
+$for i in all_key:
+  <tr>
+  	<td class="dotbt">$i</td>
+  	<td class="dotb" style="word-wrap: break-word;">$db_todo[i]</td>
+  </tr>
+</table>
+
+</div>
+
+<p> </p>
+

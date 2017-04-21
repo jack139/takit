@@ -1,0 +1,33 @@
+$def with (name, str, todo, user_12306, pass_12306, rand_code)
+
+$var title: 人工下单
+$var css:
+$var js: /static/js/jquery-1.7.1.min.js /static/js/order.js?ver=1.4
+$var name: $str $name
+$var load: InitInit();
+
+<script type="text/javascript">
+function InitInit(){
+	doFirst("$todo");
+}
+</script>
+
+<h3>人工下单</h3>
+
+<p><label id="tips"></label></p>
+
+<form name="settings" method="post" action="/order2">
+<input type="hidden" name="todo" value="$todo">
+
+<p>12306用户名：<input class="logininput" type="text" name="name12306" value="$user_12306"/></p>
+<p>12306密码：<input class="logininput" type="password" name="pwd12306" value="$pass_12306"/></p>
+<p>
+<div>请输入随机码：</div>
+<div><span id="sjrand"></span></div>
+<div><input class="formtextinput3" type="text" name="rand_code" id="sj_input" value="$rand_code" readonly="readonly"/>
+<input class="formbutton" type="button" onclick="$$('#sj_input')[0].value='';" value="重来"></div>
+</p>
+<p> </p>
+<p><input class="formbutton" type="submit" name="button" id="button" value="下单" /><p>
+
+</form>

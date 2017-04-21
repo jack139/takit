@@ -1,0 +1,49 @@
+$def with (name, str, settings)
+
+$var title: 12306用户管理
+$var css:
+$var js:
+$var name: $str $name
+    
+<h3>12306用户管理</h3>
+
+<form name="settings" method="post" action="/admin/kam_setting">
+<input type="hidden" name="kid" value="$settings[0]" />  
+<p>登录名称：$settings[1]</p>
+<p>登录密码：<input class="formtextinput3" type="text" name="passwd" value="$settings[2]"/></p>
+<p>分组名称：<input class="formtextinput3" type="text" name="group" value="$settings[6]"/> （不要以数字开头）</p>
+<p>当前状态：$settings[3]</p>
+<p>新状态：
+    <input type="radio" name="status" value="-" checked="checked" /> 保存不变
+    <input type="radio" name="status" value="OK" /> 正常
+    <input type="radio" name="status" value="READY" /> 停用
+    <input type="radio" name="status" value="FAIL" /> 有问题
+</p>
+<p>允许代付：
+    <input type="radio" name="auto_pay" value="1"
+    	$if settings[4]!=0:
+    		checked="checked"
+    /> 允许
+    <input type="radio" name="auto_pay" value="0"
+    	$if settings[4]==0: 
+    		checked="checked" 
+    /> 不允许 
+</p>
+<p>是否在线：
+    <input type="radio" name="online" value="1"
+    	$if settings[5]!=0:
+    		checked="checked"
+    /> 在线
+    <input type="radio" name="online" value="0"
+    	$if settings[5]==0: 
+    		checked="checked" 
+    /> 离线 
+</p>
+<p> </p>
+<p>
+  <input class="formbutton" type="submit" name="button" id="button" value="保存" />
+  <input class="formbutton" type="button" name="button" id="button" value="返回" onclick="javascript:history.go(-1);"/>
+</p>
+</form>
+$if settings[3]=='FAIL':
+  <a class="act" href="/admin/kam_del?kid=$settings[0]" onclick="{if(confirm('确定要删除吗？')){return true;}return false;}">删除</a>

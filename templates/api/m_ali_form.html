@@ -1,0 +1,39 @@
+$def with (todo, ali_form)
+
+$var title: 支付宝接口
+$var js: 
+$var load: doFirst();
+
+<script type="text/javascript">
+function doFirst(){
+	$$("#ali_form").submit();
+}
+</script>
+
+<h3>支付宝接口</h3>
+
+<p><label id="tips"></label></p>
+
+
+<form action="https://mapi.alipay.com/gateway.do" method="post" name="myform" id="ali_form">
+  <input type="hidden"  name="ord_time_ext" value="$ali_form['ord_time_ext']">
+  <input type="hidden"  name="ord_name" value="$ali_form['ord_name']">
+  <input type="hidden"  name="ord_desc" value="$ali_form['ord_desc']">
+  <input type="hidden"  name="notify_url" value="$ali_form['notify_url']">
+  <input type="hidden"  name="sign" value="$ali_form['sign']">
+  <input type="hidden"  name="ord_amt" value="$ali_form['ord_amt']">
+  <input type="hidden"  name="service" value="$ali_form['service']">
+  <input type="hidden"  name="partner" value="$ali_form['partner']">
+  <input type="hidden"  name="dispatch_cluster_target" value="$ali_form['dispatch_cluster_target']">
+  <input type="hidden"  name="ord_cur" value="$ali_form['ord_cur']">
+  <input type="hidden"  name="ord_pmt_timeout" value="$ali_form['ord_pmt_timeout']">
+  <input type="hidden"  name="req_access_type" value="$ali_form['req_access_type']">
+  <input type="hidden"  name="_input_charset" value="$ali_form['_input_charset']">
+  <input type="hidden"  name="ord_id_ext" value="$ali_form['ord_id_ext']">
+  <input type="hidden"  name="sign_type" value="$ali_form['sign_type']">
+  <input type="hidden"  name="return_url" value="$ali_form['return_url']">
+  <input type="hidden"  name="req_client_ip_ext" value="$ali_form['req_client_ip_ext']">
+
+  <input class="formbutton" type="submit" id="button" value="正在自动跳转到支付宝 ..." />
+</form>
+

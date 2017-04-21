@@ -1,0 +1,24 @@
+$def with (name, str, db_todo)
+
+$var title: Qunar订单信息
+$var css:
+$var js:
+$var name: $str $name
+$var load:
+
+<h3>Qunar订单信息</h3>
+
+$for u in db_todo:
+  <div>订单号 
+  	$if u.has_key('orderNo'):
+  		$u['orderNo']
+  	： &nbsp;
+  	$if u.has_key('tripNum'):
+  		共 $u['tripNum'] 个订单
+  	$if u.has_key('seq'):
+  		- 第 $u['seq'] 个订单
+  	<a href="/view_event?todo=$u['_id']" class="rdact" target="_blank">查看详情</a>
+  </div>
+
+<br/>
+<p><a class="rdact" href="/crm">返回</a></p>

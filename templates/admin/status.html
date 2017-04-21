@@ -1,0 +1,37 @@
+$def with (name, str, info)
+
+$var title: 系统状态
+$var css:
+$var js:
+$var name: $str $name
+    
+<h3>系统状态</h3>
+
+<p><b> $info['uptime']</b></p>
+$for l in info['df_data']:
+  <p>&nbsp;&nbsp;$l</p>
+<br/>
+
+<h3>进程状态: </h3>
+
+<table>
+<tr><td class="dotbt">takit.py</td>     <td class="dotb">$info['takit']</td></tr>
+</table>
+
+<h3>Nginx error日志: </h3>
+$for l in info['error_log']:
+  <p>&nbsp;&nbsp;$l</p>
+
+<h3>uWSGI - takit日志: </h3>
+$for l in info['uwsgi_log']:
+  <p>&nbsp;&nbsp;$l</p>
+
+<h3>dispatcher - takit日志: </h3>
+$for l in info['dispatch_log']:
+  <p>&nbsp;&nbsp;$l</p>
+
+<h3>processor - takit日志: </h3>
+$for l in info['process_log']:
+  <p>&nbsp;&nbsp;$l</p>
+
+<br/>

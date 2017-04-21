@@ -1,0 +1,15 @@
+$def with (info, goto="javascript:history.go(-1);", text2="返回", more=[])
+
+$var title: 信息提示
+$var css:
+$var js:
+$var name: 
+$var load:
+
+<h3>$info</h3>
+
+$if len(more)>0:
+  $for i in more:
+    <p>$i</p>
+
+<p><a class="rdact" href="$goto">$text2</a></p>

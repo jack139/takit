@@ -1,0 +1,34 @@
+$def with (name, str)
+
+$var title: 添加新12306用户
+$var css:
+$var js:
+$var name: $str $name
+    
+<h3>添加新12306用户</h3>
+
+<form name="settings" method="post" action="/admin/kam_add">
+<p>登录名称：<input class="formtextinput3" type="text" name="uname" value=""/></p>
+<p>登录密码：<input class="formtextinput3" type="text" name="passwd" value="ilovef8"/></p>
+<p>分组名称：<input class="formtextinput3" type="text" name="group" value=""/> （不要以数字开头）</p>
+
+<p>状态：
+    <input type="radio" name="status" value="OK" checked="checked"/> 正常
+    <input type="radio" name="status" value="READY" /> 停用
+    <input type="radio" name="status" value="FAIL" /> 有问题
+</p>
+<p>允许代付：
+    <input type="radio" name="auto_pay" value="1" checked="checked" /> 允许
+    <input type="radio" name="auto_pay" value="0"/> 不允许 
+</p>
+<p>是否在线：
+    <input type="radio" name="online" value="1" /> 在线
+    <input type="radio" name="online" value="0" checked="checked"/> 离线
+</p>
+
+
+
+<p> </p>
+<p><input class="formbutton" type="submit" name="button" id="button" value="保存" /><p>
+
+</form>

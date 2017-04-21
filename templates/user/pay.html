@@ -1,0 +1,19 @@
+$def with (name, str, todo, order, u12306)
+
+$var title: 支付
+$var css:
+$var js: /static/js/jquery-1.7.1.min.js /static/js/pay.js?ver=1.0
+$var name: $str $name
+$var load:
+
+<h3>支付</h3>
+<p><label id="tips"></label></p>
+
+<p>请点击下面按钮开始付款，或者登录12306用户（$u12306）进行付款。<p>
+<p>票号：$order</p>
+<div id="alipay"><a class="act" href="/pay2?todo=$todo" target="_blank" onclick="hide_show()">支付宝付款</a></p></div>
+
+<div id="check_result" style="display: none;">
+<input type="button" value="付款成功" onclick="payOK('$todo', 1)"/>
+<input type="button" value="重新支付" onclick="payOK('$todo', 0)"/>
+</div>

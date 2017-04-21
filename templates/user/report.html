@@ -1,0 +1,43 @@
+$def with (name, str)
+
+$var title: 报表明细
+$var css:
+$var js: /static/js/jquery-1.7.1.min.js /static/js/time.js /static/My97DatePicker/WdatePicker.js
+$var name: $str $name
+$var load: InitInit();
+
+<script type="text/javascript">
+function InitInit(){
+	var date =  new Time();
+	var m_dtCalendarDate = date.getStringTime().split(" ")[0];;
+
+	WdatePicker({
+		minDate:'2014-01-01 00:00:00',
+		maxDate:'2048-12-31 23:59:59',
+		eCont:'div1',
+		onpicked:function(dp){
+			m_dtCalendarDate = 
+			$$('#dtCalendarDate')[0].value=dp.cal.getDateStr();
+		},
+		lang: 'zh-cn',
+		startDate:m_dtCalendarDate
+	});	
+	
+}
+
+function goReport(){
+	window.location.href='/report?start_date='+$$('#dtCalendarDate')[0].value
+}
+
+
+</script>
+
+<h3>报表明细</h3>
+
+<p>报表日期：<input class="formtextinput3" type="text" value="" id="dtCalendarDate" readonly="readonly"/>
+	<div id="div1" class="widthpercent100"></div></p>
+<p><input class="formbutton" type="button" name="button" id="button" value="查询" onclick="goReport();" /><p>
+<p> </p>	
+
+
+<br/>

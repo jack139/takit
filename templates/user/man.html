@@ -1,0 +1,33 @@
+$def with (name, str)
+
+$var title: 人工处理界面
+$var css:
+$var js: /static/js/jquery-1.7.1.min.js /static/js/man.js?ver=2.6
+$var name: $str $name
+$var load: doFirst(3);
+
+<h3>人工处理界面 &nbsp;&nbsp;<a class="act" href="/man">手动刷新</a></h3>
+<p><label id="tips"></label></p>
+
+<h4>输入随机码:</h4>
+<table >
+<tr>
+<td class="dotb" width="300" height="260"><div id="wait_sjrand_1"></div></td>
+<td class="dotb" width="300" height="260"><div id="wait_sjrand_2"></div></td>
+<td class="dotb" width="300" height="260"><div id="wait_sjrand_3"></div></td>
+</tr>
+<tr>
+<td class="dotb" width="300" height="8"><img src="/static/null.jpg" /></td>
+<td class="dotb" width="300" height="8"><img src="/static/null.jpg" /></td>
+<td class="dotb" width="300" height="8"><img src="/static/null.jpg" /></td>
+</tr>
+</table>
+
+<h4>等待付款:</h4>
+<div id="wait_pay"></div> 
+
+<h4>需人工处理:</h4>
+<div id="wait_status"></div> 
+
+<h4>自动处理:</h4>
+<div id="wait_auto"></div> 

@@ -1,0 +1,44 @@
+$def with (name, str, info)
+
+$var title: 数据统计
+$var css:
+$var js:
+$var name: $str $name
+    
+<h3>综合数据统计</h3>
+
+<table>
+<tr><td class="dotbt">活动用户</td>   <td class="dotb">$info['active']</td></tr>
+<tr><td class="dotbt">停用用户</td>   <td class="dotb">$info['nonactive']</td></tr>
+<tr><td class="dotbt">系统用户</td>   <td class="dotb">$info['admin']</td></tr>
+<tr><td class="dotbt">session总数</td><td class="dotb">$info['sessions']</td></tr>
+<tr><td class="dotbt">device总数</td> <td class="dotb">$info['device']</td></tr>
+<tr><td class="dotbt">todo总数</td>   <td class="dotb">$info['todo']</td></tr>
+<tr><td class="dotbt">SLEEP总数</td>   <td class="dotb">$info['sleep']</td></tr>
+<tr><td class="dotbt">lock总数</td>   <td class="dotb">$info['lock']</td></tr>
+</table>
+
+<br/>
+
+<table>
+  <tr><td class="dotbt">Tname</td>
+  <td class="dotbt">0</td><td class="dotbt">1</td><td class="dotbt">2</td>
+  <td class="dotbt">3</td><td class="dotbt">4</td><td class="dotbt">5</td>
+  <td class="dotbt">6</td><td class="dotbt">7</td><td class="dotbt">8</td>
+  <td class="dotbt">9</td><td class="dotbt">10</td><td class="dotbt">11</td>
+  <td class="dotbt">12</td><td class="dotbt">13</td><td class="dotbt">14</td>
+  <td class="dotbt">15</td><td class="dotbt">16</td><td class="dotbt">17</td>
+  <td class="dotbt">18</td><td class="dotbt">19</td><td class="dotbt">20</td>
+  <td class="dotbt">21</td><td class="dotbt">22</td><td class="dotbt">23</td></tr>
+$for t in info['idle_time']:
+  <tr><td class="dotb">$t['tname']</td>
+  <td class="dotb">$t['0']</td><td class="dotb">$t['1']</td><td class="dotb">$t['2']</td>
+  <td class="dotb">$t['3']</td><td class="dotb">$t['4']</td><td class="dotb">$t['5']</td>
+  <td class="dotb">$t['6']</td><td class="dotb">$t['7']</td><td class="dotb">$t['8']</td>
+  <td class="dotb">$t['9']</td><td class="dotb">$t['10']</td><td class="dotb">$t['11']</td>
+  <td class="dotb">$t['12']</td><td class="dotb">$t['13']</td><td class="dotb">$t['14']</td>
+  <td class="dotb">$t['15']</td><td class="dotb">$t['16']</td><td class="dotb">$t['17']</td>
+  <td class="dotb">$t['18']</td><td class="dotb">$t['19']</td><td class="dotb">$t['20']</td>
+  <td class="dotb">$t['21']</td><td class="dotb">$t['22']</td><td class="dotb">$t['23']</td></tr>
+</table>
+<br/>

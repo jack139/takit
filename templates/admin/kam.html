@@ -1,0 +1,65 @@
+$def with (name, str, kams, cat)
+
+$var title: 12306用户管理
+$var css:
+$var js:
+$var name: $str $name
+
+<h3>12306用户管理</h3>
+
+<p><a class="act" href="/admin/kam_add">添加新用户</a>
+  <a class="rdact" href="/admin/kam?cat=0">所有</a>
+  <a class="rdact" href="/admin/kam?cat=1">空闲的</a>
+  <a class="rdact" href="/admin/kam?cat=2">有问题的</a>
+  <a class="rdact" href="/admin/kam?cat=3">在使用的</a>
+  <a class="rdact" href="/admin/kam?cat=4">停用的</a>
+  <a class="rdact" href="/admin/kam?cat=5">在线的</a>
+  <a class="rdact" href="/admin/kam?cat=6">离线的</a>
+  <a class="act" href="/admin/kam?cat=99">更新订单数</a>
+</p>
+
+<form name="report_order" method="post" action="/admin/kam">
+<div>分组操作: <input class="formtextinput3" type="text" value="" name="group"/>
+    <input type="radio" name="action" value="QUERY" checked="checked"/> 查询
+    <input type="radio" name="action" value="ONLINE" /> 上线
+    <input type="radio" name="action" value="OFFLINE" /> 下线
+    <input type="radio" name="action" value="CHANGE" /> 修改密码
+</div>
+<div>新密码: <input class="formtextinput3" type="text" value="" name="new_pass"/>
+必须为字母数字和下划线中不少于两者的组合, 且长度大于6.</div>
+<div><input class="formbutton" type="submit" name="button" id="button" value="执行"
+onclick="{if(confirm('如果提交修改登录密码，此分组首先将自动做下线处理！')){return true;}return false;}"/></div
+</form>
+
+<p>
+  $if cat=='0': 所有用户
+  $elif cat=='1': 
+  	空闲的正常用户
+  $elif cat=='2': 
+  	有问题的用户
+  $elif cat=='3': 
+  	在使用的用户
+  $else:
+  	分组: $cat
+</p>
+
+<table>
+  <tr>
+  	<td class="dotbt">用户名</td> 
+  	<td class="dotbt">状态</td>
+  	<td class="dotbt">在线</td>
+  	<td class="dotbt">分组</td>
+  	<td class="dotbt">订单</td>
+  	<td class="dotbt">备注</td>
+  </tr>
+
+$for u in kams:
+  <tr>
+  <td class="dotb"><a href="/admin/kam_setting?kid=$u[1]">$u[0]</a></td> 
+  <td class="dotb">$u[2]</td>
+  <td class="dotb">$u[4]</td>
+  <td class="dotb">$u[5]</td>
+  <td class="dotb">$u[6]</td>
+  <td class="dotb">$u[3]</td>
+  </tr>
+</table>

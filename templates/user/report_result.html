@@ -1,0 +1,48 @@
+$def with (name, str, report, total, date)
+
+$var title: 报表查询结果
+$var css:
+$var js: 
+$var name: $str $name
+$var load: 
+
+
+<h3>报表查询结果</h3>
+
+<p>
+  <a class="rdact" href="/report?start_date=$date&cat=0">所有</a>&nbsp;&nbsp;
+  <a class="rdact" href="/report?start_date=$date&cat=1">付款成功</a>&nbsp;&nbsp;
+  <a class="rdact" href="/report?start_date=$date&cat=2">退款成功</a>&nbsp;&nbsp;
+  <a class="rdact" href="/report?start_date=$date&cat=3">尚未付款(含出错的)</a>
+</p>
+
+<table width="100%" >
+  <tr>
+  	<td class="dotbt">Qunar订单号</td>
+  	<td class="dotbt">12306票号</td>
+  	<td class="dotbt">开车时间</td>
+  	<td class="dotbt">车次</td>
+  	<td class="dotbt">出发站</td>
+  	<td class="dotbt">到达站</td>
+  	<td class="dotbt">付款金额</td>
+  	<td class="dotbt">备注</td>
+  	<td class="dotbt">其他</td>
+  </tr>
+$for i in report:
+  <tr>
+  	<td class="dotb">$i[8]</td>
+  	<td class="dotb">$i[1]</td>
+  	<td class="dotb">$i[4]</td>
+  	<td class="dotb">$i[5]</td>
+  	<td class="dotb">$i[2]</td>
+  	<td class="dotb">$i[3]</td>
+  	<td class="dotb">$i[6]</td>
+  	<td class="dotb">$i[7]</td>
+  	<td class="dotb"><a class="rdact" href="/view_event?todo=$i[0]" target="_blank">查看详情</a></td>
+  </tr>
+</table>
+
+<h4>小计：共 $len(report) 笔</h4>
+<h4>付款：共 $:('%d' % total[0]) 笔，$:('%.2f' % total[1]) 元</h4>
+<h4>退票：共 $:('%d' % total[2]) 笔，$:('%.2f' % total[3]) 元</h4>
+<p> </p>

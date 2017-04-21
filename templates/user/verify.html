@@ -1,0 +1,56 @@
+$def with (name, str, todo, train_info, ticket_info, rand_code)
+
+$var title: 确认订单
+$var css:
+$var js: /static/js/jquery-1.7.1.min.js /static/js/verify.js?ver=1.4
+$var name: $str $name
+$var load: InitInit();
+
+<script type="text/javascript">
+function InitInit(){
+	doFirst("$todo");
+}
+</script>
+
+<h3>确认订单</h3>
+
+<p><label id="tips"></label></p>
+
+<form name="settings" method="post" action="/verify">
+<input type="hidden" name="todo" value="$todo">
+
+<p>
+<div>请输入随机码：</div>
+<div><span id="sjrand"></span></div>
+<div><input class="formtextinput3" type="text" name="rand_code" id="sj_input" value="$rand_code" readonly="readonly"/>
+<input class="formbutton" type="button" onclick="$$('#sj_input')[0].value='';" value="重来"></div>
+</p>
+
+<table>
+<tr><td class="dotbt">日期</td><td class="dotb">$train_info['train_date']</td>
+    <td class="dotbt">车次</td><td class="dotb">$train_info['station_train_code']</td></tr>
+<tr><td class="dotbt">出发站</td><td class="dotb">$train_info['from_station_name']</td>
+    <td class="dotbt">目的站</td><td class="dotb">$train_info['to_station_name']</td></tr>
+<tr><td class="dotbt">出发时间</td><td class="dotb">$train_info['start_time']</td>
+    <td class="dotbt">到达时间</td><td class="dotb">$train_info['arrive_time']</td></tr>
+<tr><td class="dotbt">运行时间</td><td class="dotb">$train_info['lishi']</td>
+    <td class="dotbt">其他</td><td class="dotb"></td></tr>
+</table>
+<p></p>
+<p>购票人姓名：<input class="formtextinput3" type="text" name="id_name" value=""/></p>
+<p><div>证件类型：</div>
+	<input type="radio" name="id_type" value="1" checked="checked">二代身份证</input>
+	<input type="radio" name="id_type" value="C">港澳通行证</input>
+	<input type="radio" name="id_type" value="G">台湾通行证</input>
+	<input type="radio" name="id_type" value="B">护照</input>
+</p>
+<p>证件号码：<input class="formtextinput3" type="text" name="id_no" value=""/></p>
+<p><div>选择座席：</div>
+$for i in ticket_info
+	<input type="radio" name="seat_type" value="$i[0]">$i[1] ($i[2]) $i[3]</input>
+</p>
+
+<br/>
+<p><input class="formbutton" type="submit" name="button" id="button" value="下单" /><p>
+
+</form>
